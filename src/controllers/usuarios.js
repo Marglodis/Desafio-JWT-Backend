@@ -13,10 +13,13 @@ const list = async (req, res) => {
 const findOne = async (req, res) => {
   try {
     const { email } = req.params;
+
     /* const Authorization = req.header("Authorization")
   const token = Authorization.split("Bearer ")[1]
   jwt.verify(token, process.env.JWT_SECRET) */
   //const { email } = jwt.verify(token)
+  
+  
   const usuario = await usuariosService.findOne(email);
     res.status(200).send(usuario);
   } catch (err) {
@@ -24,6 +27,22 @@ const findOne = async (req, res) => {
     res.status(500).send({});
   }
 };
+
+const showUser = async (req, res) => {
+
+  try {
+      const Authorization = req.header("Authorization")
+      const token = Authorization.split("Bearer ")[1]
+      jwt.verify(token, JWT_SECRET)
+      const { email } = jwt.decode(token)
+      const data = await usuariosService.findOne(email)
+      res.send(data)
+  } catch (error) {
+      res.status(500).send(error)
+
+  }
+  }
+
 
 const create = async (req, res) => {
   try {
@@ -42,4 +61,5 @@ module.exports = {
   list,
   findOne,
   create,
+  showUser
 };

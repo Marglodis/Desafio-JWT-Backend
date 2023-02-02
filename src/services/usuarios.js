@@ -42,18 +42,12 @@ const verificarCredenciales = async (email, password) => {
         const values = [email]
         const consulta = "SELECT * FROM usuarios WHERE email = $1"
         const { rows } = await pool.query(consulta, values)
-        console.log(rows)
+        console.log("Estoy en findONe SERVICES,",rows)
 
          return rows
     }    
 
-
-
-    
-
-
-
-
+ 
 module.exports = {
     list, create, verificarCredenciales, findOne
 };

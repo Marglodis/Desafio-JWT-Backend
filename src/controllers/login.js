@@ -15,8 +15,8 @@ if(!user){
 }
  //   await usuariosService.verificarCredenciales(email, password)
  
- 
  const checkPassword = await comparar(password,user[0].password)  
+ console.log("checkPAssword", checkPassword)
  if(checkPassword){
     console.log("Password OK")
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: 20 }) 
@@ -26,14 +26,16 @@ if(!user){
     }) */
  }
   else {
-          return next(new ErrorResponse("Las credenciales son incorrectas", 400));
+    console.log("Esta es la respuesat del NEXT")
+          return  res.status(error.code || 500).send(error)
         }  
   
         /* const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: 20 }) // Cambiar el "az_AZ" por JWT_SECRET , varianle sd entorno
         res.send(token) */
         //const tokenSession = await tokenSign(user)
     } catch (error) {
-        console.log(error)
+
+        console.log("Esta es la respuesat del catch",error)
         res.status(error.code || 500).send(error)
     }
   };
