@@ -12,8 +12,12 @@ const list = async (req, res) => {
 
 const findOne = async (req, res) => {
   try {
-    const { id } = req.params;
-    const usuario = await usuariosService.findOne(id);
+    const { email } = req.params;
+    /* const Authorization = req.header("Authorization")
+  const token = Authorization.split("Bearer ")[1]
+  jwt.verify(token, process.env.JWT_SECRET) */
+  //const { email } = jwt.verify(token)
+  const usuario = await usuariosService.findOne(email);
     res.status(200).send(usuario);
   } catch (err) {
     console.error();
@@ -33,33 +37,9 @@ const create = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const payload = req.body;
-    const usuarioUpdated = await usuariosService.update(payload);
-    res.status(200).send(usuarioUpdated);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({});
-  }
-};
-
-const remove = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await usuariosService.delete(id);
-    res.status(204);
-  } catch (err) {
-    console.error(err);
-    res.status(500);
-  }
-};
 
 module.exports = {
   list,
   findOne,
   create,
-  update,
-  remove,
 };
