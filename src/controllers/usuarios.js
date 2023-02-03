@@ -1,26 +1,9 @@
-const usuariosService = require('../services/usuarios');
-
-const list = async (req, res) => {
-  try {
-    const usuariosList = await usuariosService.list();
-    return res.status(200).send(usuariosList);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send([]);
-  }
-};
+const usuariosService = require("../services/usuarios");
 
 const findOne = async (req, res) => {
   try {
     const { email } = req.params;
-
-    /* const Authorization = req.header("Authorization")
-  const token = Authorization.split("Bearer ")[1]
-  jwt.verify(token, process.env.JWT_SECRET) */
-  //const { email } = jwt.verify(token)
-  
-  
-  const usuario = await usuariosService.findOne(email);
+    const usuario = await usuariosService.findOne(email);
     res.status(200).send(usuario);
   } catch (err) {
     console.error();
@@ -28,26 +11,18 @@ const findOne = async (req, res) => {
   }
 };
 
-const showUser = async (req, res) => {
-
+const mostrarUsuario = (req, res) => {
   try {
-      const Authorization = req.header("Authorization")
-      const token = Authorization.split("Bearer ")[1]
-      jwt.verify(token, JWT_SECRET)
-      const { email } = jwt.decode(token)
-      const data = await usuariosService.findOne(email)
-      res.send(data)
-  } catch (error) {
-      res.status(500).send(error)
-
+    const { usuario } = req;
+    res.json(usuario);
+  } catch (e) {
+    console.log(e);
   }
-  }
-
+};
 
 const create = async (req, res) => {
   try {
     const payload = req.body;
-    
     const usuarioCreated = await usuariosService.create(payload);
     res.status(200).send(usuarioCreated);
   } catch (err) {
@@ -56,10 +31,8 @@ const create = async (req, res) => {
   }
 };
 
-
 module.exports = {
-  list,
+  mostrarUsuario,
   findOne,
   create,
-  showUser
 };

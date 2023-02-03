@@ -1,22 +1,16 @@
-const jwt = require(jsonwebtoken);
+const jwt = require("jsonwebtoken");
 
-const signToken = async(user)=>{
-return jwt.sign({
-    email:user.email,
-    rol:user.rol
-},process.env.JWT_SECRET,
-{
-    expiresIn:20
-});
+const signToken = async (user) => {
+  console.log("Estoy en el signToken: ", user);
+  return jwt.sign(
+    {
+      email: user.email,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "10m",
+    }
+  );
+};
 
-}
-
-const  verifyToken = async(token)=>{
-
-}
-
-const decoSign = async(token)=>{
-
-}
-
-module.exports = {signToken,verifyToken,decoSign}
+module.exports = { signToken };
