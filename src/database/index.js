@@ -12,6 +12,7 @@ const pool = new Pool({
     password: DATABASE_PASSWORD,
     database: DATABASE_NAME,
     port: DATABASE_PORT,
+    allowExitOnIdle: true
 });
 
 module.exports = pool;
